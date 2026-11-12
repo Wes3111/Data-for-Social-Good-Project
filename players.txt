@@ -1,0 +1,5 @@
+Mike Trout,150,450
+Aaron Judge,160,480
+Mookie Betts,145,420
+Shohei Ohtani,155,460
+Ronald Acuna,170,500

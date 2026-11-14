@@ -1,9 +1,10 @@
+
 import java.util.Scanner;
 import java.io.File;
 import java.io.IOException;
 
 /*
- * Stores and analyzes baseball player statistics.
+ * Stores and analyzes MLB player statistics.
  * Uses arrays to store player names, hits, and at-bats.
  */
 public class UserStory {
@@ -25,9 +26,9 @@ public class UserStory {
 
   /*
    * Parameterized constructor.
-   * Reads baseball statistics from a text file.
-   * Precondition: The file must contain valid player data.
-   * Postcondition: Player information is stored in arrays.
+   * Reads all player statistics from a text file.
+   * Precondition: The file contains player names, hits, and at-bats.
+   * Postcondition: Valid player data is stored in the arrays.
    */
   public UserStory(String filename) {
     this();
@@ -36,20 +37,25 @@ public class UserStory {
       Scanner input = new Scanner(new File(filename));
 
       while (input.hasNextLine() && size < names.length) {
-        String line = input.nextLine();
-        String[] data = line.split(",");
+        String line = input.nextLine().trim();
 
-        names[size] = data[0];
-        hits[size] = Integer.parseInt(data[1]);
-        atBats[size] = Integer.parseInt(data[2]);
+        if (!line.equals("")) {
+          String[] data = line.split(",");
 
-        size++;
+          if (data.length == 3) {
+            names[size] = data[0].trim();
+            hits[size] = Integer.parseInt(data[1].trim());
+            atBats[size] = Integer.parseInt(data[2].trim());
+
+            size++;
+          }
+        }
       }
 
       input.close();
 
     } catch (IOException e) {
-      System.out.println("Error reading the file.");
+      System.out.println("Error reading players.txt");
     }
   }
 
@@ -62,30 +68,28 @@ public class UserStory {
       return new Player();
     }
 
-    int bestIndex = 0;
+    int bestIndex = -1;
 
-    for (int i = 1; i < size; i++) {
-      double currentAverage =
-        (double) hits[i] / atBats[i];
-
-      double bestAverage =
-        (double) hits[bestIndex] / atBats[bestIndex];
-
-      if (currentAverage > bestAverage) {
-        bestIndex = i;
+    for (int i = 0; i < size; i++) {
+      if (atBats[i] > 0) {
+        if (bestIndex == -1 ||
+            (double) hits[i] / atBats[i] >
+            (double) hits[bestIndex] / atBats[bestIndex]) {
+          bestIndex = i;
+        }
       }
     }
 
-    return new Player(
-      names[bestIndex],
-      hits[bestIndex],
-      atBats[bestIndex]
-    );
+    if (bestIndex == -1) {
+      return new Player();
+    }
+
+    return new Player(names[bestIndex], hits[bestIndex], atBats[bestIndex]);
   }
 
   /*
-   * Calculates the team's average batting average.
-   * Postcondition: Returns the average of all player averages.
+   * Calculates the average batting average of all players.
+   * Postcondition: Returns the team's average batting average.
    */
   public double getTeamAverage() {
     if (size == 0) {
@@ -93,18 +97,24 @@ public class UserStory {
     }
 
     double total = 0.0;
+    int count = 0;
 
     for (int i = 0; i < size; i++) {
       if (atBats[i] > 0) {
         total += (double) hits[i] / atBats[i];
+        count++;
       }
     }
 
-    return total / size;
+    if (count == 0) {
+      return 0.0;
+    }
+
+    return total / count;
   }
 
   /*
-   * Calculates the total number of hits by all players.
+   * Calculates the total number of hits from all players.
    * Postcondition: Returns the combined number of hits.
    */
   public int getTotalHits() {
@@ -119,7 +129,7 @@ public class UserStory {
 
   /*
    * Creates a new array containing players with averages
-   * greater than or equal to .300.
+   * of .300 or higher.
    * Postcondition: Returns an array of qualifying players.
    */
   public Player[] getPlayersAbove300() {
@@ -151,12 +161,12 @@ public class UserStory {
   }
 
   /*
-   * Returns detailed information about the dataset.
+   * Returns detailed information about the MLB dataset.
    */
   public String toString() {
-    return "Baseball Statistics Analyzer\n" +
+    return "MLB Statistics Analyzer\n" +
       "Number of Players: " + size + "\n" +
       "Total Hits: " + getTotalHits() + "\n" +
-      "Team Average: " + getTeamAverage();
+      "Average Batting Average: " + getTeamAverage();
   }
 }

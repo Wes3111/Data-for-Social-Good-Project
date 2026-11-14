@@ -1,5 +1,30 @@
-Mike Trout,150,450
-Aaron Judge,160,480
-Mookie Betts,145,420
-Shohei Ohtani,155,460
-Ronald Acuna,170,500
+Shohei Ohtani,160,500
+Aaron Judge,155,470
+Mookie Betts,150,460
+Freddie Freeman,165,510
+Juan Soto,145,455
+Bryce Harper,140,430
+Ronald Acuna Jr,150,480
+Bobby Witt Jr,175,520
+Jose Ramirez,160,500
+Julio Rodriguez,150,490
+Fernando Tatis Jr,145,470
+Francisco Lindor,155,500
+Corey Seager,135,420
+Yordan Alvarez,145,440
+Cal Raleigh,130,450
+Gunnar Henderson,140,460
+Kyle Tucker,150,470
+Elly De La Cruz,145,500
+Vladimir Guerrero Jr,160,500
+Rafael Devers,150,480
+Jackson Chourio,140,490
+Mike Trout,135,430
+Ozzie Albies,145,475
+Matt Olson,150,490
+Pete Alonso,155,500
+Manny Machado,150,480
+Cody Bellinger,145,465
+Trea Turner,155,490
+Jarren Duran,160,510
+Paul Goldschmidt,130,440
